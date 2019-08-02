@@ -40,9 +40,20 @@ class Volunteer
     end
   end
 
-  # def save
-  #   result = DB.exec("INSERT INTO volunteers (name, project_id, id) VALUES ('#{@name}', #{@project_id}, #{@id}) RETURNING id;")
-  #   @id = result.first().fetch("id").to_i
-  # end
+# -------------failing---------------
+  def save
+    result = DB.exec("INSERT INTO volunteer (name, project_id, id) VALUES ('#{@name}', #{@project_id}, #{@id}) RETURNING id;")
+    @id = result.first().fetch("id").to_i
+  end
+
+  def update(name)
+    @name = name
+    DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id};")
+  end
+
+def delete
+  DB.exec("DELETE FROM albums WHERE id = #{@id};")
+  DB.exec("DELETE FROM songs WHERE album_id = #{@id};")
+end
 
 end

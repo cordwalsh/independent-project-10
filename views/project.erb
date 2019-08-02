@@ -4,7 +4,7 @@
   <% if @project.volunteers.any? %>
     <ul>
       <% @project.volunteers.each do |volunteer| %>
-        <li><a href="/albums/<%= album.id %>"><%= volunteer.name %></a></li>
+        <li><a href="/volunteers/<%= volunteer.id %>"><%= volunteer.name %></a></li>
       <% end %>
     </ul>
   <% else %>

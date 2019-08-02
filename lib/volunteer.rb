@@ -28,6 +28,18 @@ class Volunteer
     self.name() == volunteer_to_compare.name()
   end
 
+  def self.find(id)
+    volunteer = DB.exec("SELECT * FROM volunteer WHERE id = #{id};").first
+    if volunteer
+      name = volunteer.fetch("name")
+      id = volunteer.fetch("id").to_i
+      project_id = volunteer.fetch("project_id").to_i
+      Volunteer.new({:name => name, :id => id, :project_id => project_id})
+    else
+      nil
+    end
+  end
+
   # def save
   #   result = DB.exec("INSERT INTO volunteers (name, project_id, id) VALUES ('#{@name}', #{@project_id}, #{@id}) RETURNING id;")
   #   @id = result.first().fetch("id").to_i

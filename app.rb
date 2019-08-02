@@ -9,13 +9,17 @@ also_reload('lib/**/*.rb')
 DB = PG.connect({:dbname => "volunteer_tracker"})
 
 get('/') do
-  Project.clear()
+  Project.all()
   redirect to('/projects')
 end
 
 get ('/projects') do
   @projects = Project.all
   erb(:projects)
+end
+
+get ('/projects/new') do
+  erb(:new_project)
 end
 
 get ('/projects/:id') do

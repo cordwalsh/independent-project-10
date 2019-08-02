@@ -1,0 +1,31 @@
+<h2>Project Name: <%= @project.title %></h2>
+
+<h3>Projects volunteers</h3>
+  <% if @project.volunteers.any? %>
+    <ul>
+      <% @project.volunteers.each do |volunteer| %>
+        <li><a href="/albums/<%= album.id %>"><%= volunteer.name %></a></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no volunteers listed for this project yet.</p>
+  <% end %>
+
+<h4>Add a volunteer:</h4>
+--------------------------------------
+
+<form action="/projects/<%= @project.id %>/volunteers" method="post">
+  <div class="form-group">
+    <label for="volunteer_name">volunteer name</label>
+    <input id="_name" name="volunteer_name" class="form-control" type="text">
+  </div>
+  <button type="submit" class="btn">Add a volunteer</button>
+</form>
+
+
+
+<!-- <p><a href="/artists/<%= @artist.id %>/edit">Edit artist</a></p>
+<p><a href="/artists">Return to artist list</a></p>
+<p><a href="/albums">Return to album list</a></p>
+
+<img class="page-image" src="/images/raffi.jpg" alt=""> -->

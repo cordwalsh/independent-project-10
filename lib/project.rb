@@ -6,3 +6,6 @@ class Project
     @title = attributes.fetch(:title)
     @id = attributes.fetch(:id)
   end
+
+  def title
+end

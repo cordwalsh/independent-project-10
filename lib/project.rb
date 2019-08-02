@@ -27,6 +27,7 @@ class Project
     self.title() == project_to_compare.title()
   end
 
+# -------self.find not working--------
   def self.find(id)
     project = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
     if project
@@ -37,6 +38,7 @@ class Project
       nil
     end
   end
+# -----------------------------------------
   def save
     result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
     @id = result.first().fetch("id").to_i

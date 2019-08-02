@@ -1,0 +1,18 @@
+
+  <h2>Volunteer Name: <%= @volunteer.name %></h2>
+  <h4>Add a volunteer:</h4>
+
+  <form action="/volunteers/<%= @volunteer.id %>" method="post">
+    <div class="form-group">
+      <label for="volunteer_name">Volunteer name</label>
+      <input id="volunteer_name" name="volunteer_name" class="form-control" type="text">
+    </div>
+    <button type="submit" class="btn">Add Volunteer</button>
+  </form>
+
+
+
+
+  <p><a href="/volunteers/<%= @volunteer.id %>/edit">Edit volunteer</a></p>
+  <p><a href="/volunteers">Return to volunteer list</a></p>
+</div>

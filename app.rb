@@ -52,3 +52,42 @@ get ('/index') do
   @projects = Project.all()
   @volunteers = Volunteer.all()
 end
+# ----------------------------
+get('/volunteers') do
+  @volunteers = Volunteer.all
+  erb(:volunteers)
+end
+
+get ('/volunteers/new') do
+  erb(:new_volunteer)
+end
+
+post ('/volunteers') do
+  name = params[:volunteer_name]
+  volunteer = Volunteer.new({:name => name, :id => nil })
+  volunteer.save()
+  redirect to('/volunteers')
+end
+
+get ('/volunteers/:id') do
+  @volunteer = Volunteer.find(params[:id].to_i())
+  erb(:volunteer)
+end
+#
+get ('/volunteers/:id/edit') do
+  @volunteer = Volunteer.find(params[:id].to_i())
+  erb(:edit_volunteer)
+end
+
+patch ('/volunteers/:id') do
+  @volunteer = Volunteer.find(params[:id].to_i())
+  @volunteer.update(params[:name])
+  redirect to('/volunteers')
+end
+
+delete ('/volunteers/:id') do
+  @volunteer = Volunteer.find(params[:id].to_i())
+  @volunteer.delete()
+  redirect to('/volunteers')
+end
+# ---------------------------------

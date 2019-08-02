@@ -24,12 +24,14 @@ describe Project do
       expect(project1 == project2).to eq true
     end
   end
-# #
-#     it 'returns the id of the project after saving project' do
-#       project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
-#       project.save
-#       expect(project.id).to eq nil
-#     end
+
+    # it 'returns the id of the project after saving project' do
+    #   project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
+    #   project.save
+    #   expect(project.id).to eq nil
+    # end
+
+  end
 # context '.all' do
 #   it 'is empty to start' do
 #     expect(Project.all).to eq []
@@ -50,7 +52,6 @@ describe Project do
 #   end
 # end
 
-end
 
 
 #

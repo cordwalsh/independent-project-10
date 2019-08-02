@@ -22,13 +22,14 @@ class Project
     DB.exec("DELETE FROM projects *;")
   end
 
-  # def save
-  #   result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
-  #   @id = result.first().fetch("id").to_i
-  # end
 
   def ==(project_to_compare)
     self.title() == project_to_compare.title()
   end
+
+  # def save
+  #   result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
+  #   @id = result.first().fetch("id").to_i
+  # end
 
 end

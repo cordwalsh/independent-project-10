@@ -1,0 +1,12 @@
+
+.jumbotron {
+  background-color: lightblue;
+  height: 50px;
+  color: white;
+  text-shadow: 2px 2px 6px red;
+
+}
+
+button {
+  color: orange;
+}

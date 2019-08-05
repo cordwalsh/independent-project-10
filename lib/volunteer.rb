@@ -1,6 +1,6 @@
 class Volunteer
-  attr_reader :id
-  attr_accessor :name, :id, :project_id
+  attr_reader :id, :project_id
+  attr_accessor :name
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
@@ -40,20 +40,22 @@ class Volunteer
     end
   end
 
+
+
 # -------------failing---------------
   def save
-    result = DB.exec("INSERT INTO volunteer (name, project_id, id) VALUES ('#{@name}', #{@project_id}, #{@id}) RETURNING id;")
-    @id = result.first().fetch("id").to_i
+    result = DB.exec("INSERT INTO volunteer (name, project_id, id) VALUES ('#{@name}', '#{@project_id}', '#{@id}') RETURNING id;")
+    @id = result.first().fetch(id).to_i
   end
-
-  def update(name)
-    @name = name
-    DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id};")
-  end
-
-def delete
-  DB.exec("DELETE FROM albums WHERE id = #{@id};")
-  DB.exec("DELETE FROM songs WHERE album_id = #{@id};")
-end
+# #
+#   def update(name)
+#     @name = name
+#     DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id};")
+#   end
+#
+# def delete
+#   DB.exec("DELETE FROM albums WHERE id = #{@id};")
+#   DB.exec("DELETE FROM songs WHERE album_id = #{@id};")
+# end
 
 end

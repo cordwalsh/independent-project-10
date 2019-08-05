@@ -34,8 +34,8 @@ post ('/projects/:project_id/volunteers') do
 end
 
 post ('/projects') do
-  name = params[:project_name]
-  project = Project.new({:name => name, :id => nil})
+  title = params[:project_name]
+  project = Project.new({:title => title, :id => nil})
   project.save()
   redirect to('/projects')
 end
@@ -68,7 +68,7 @@ end
 
 post ('/volunteers') do
   name = params[:volunteer_name]
-  volunteer = Volunteer.new({:name => name, :id => nil })
+  volunteer = Volunteer.new({:name => name, :project_id => nil, :id => nil })
   volunteer.save()
   redirect to('/volunteers')
 end

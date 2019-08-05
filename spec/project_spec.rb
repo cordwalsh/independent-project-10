@@ -1,4 +1,4 @@
-# require "spec_helper"
+require "spec_helper"
 require 'project'
 
 describe Project do

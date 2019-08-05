@@ -1,5 +1,5 @@
 require "spec_helper"
-#
+
 describe Volunteer do
   describe '#name' do
     it 'returns the name of the volunteer' do

@@ -1,6 +1,6 @@
 class Project
   attr_accessor :title
-  attr_reader :id, :title
+  attr_reader :id
 
   def initialize(attributes)
     @title = attributes.fetch(:title)
@@ -27,10 +27,10 @@ class Project
     self.title() == project_to_compare.title()
   end
 
-  def save
-    result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
-    @id = result.first().fetch("id").to_i
-  end
+  # def save
+  #   result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
+  #   @id = result.first().fetch("id").to_i
+  # end
 # -------failing--------
   def self.find(id)
     project = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
@@ -49,33 +49,33 @@ class Project
   end
 
 end
-  # def albums
-  #   albums = []
-  #   results = DB.exec("SELECT album_id FROM albums_artists WHERE artist_id = #{@id};")
-  #   results.each() do |result|
-  #     album_id = result.fetch("album_id").to_i()
-  #     album = DB.exec("SELECT * FROM albums WHERE id = #{album_id};")
-  #     name = album.first().fetch("name")
-  #     albums.push(Album.new({:name => name, :id => album_id}))
-  #   end
-  #   albums
-  #   # a way to avoid n+1 query using subquery technique....
-  #   results = DB.exec(%{
-  #     SELECT * FROM albums
-  #     WHERE id IN (
-  #       SELECT album_id FROM albums_artists
-  #       WHERE artist_id = #{@id});
-  #       })
-  #       results.map() do |result|
-  #         id = result.fetch("id").to_i()
-  #         name = result.fetch("name")
-  #         Album.new({:name => name, :id => id})
-  #   end
-  # end
-
-
-
-
+#   def albums
+#     albums = []
+#     results = DB.exec("SELECT album_id FROM albums_artists WHERE artist_id = #{@id};")
+#     results.each() do |result|
+#       album_id = result.fetch("album_id").to_i()
+#       album = DB.exec("SELECT * FROM albums WHERE id = #{album_id};")
+#       name = album.first().fetch("name")
+#       albums.push(Album.new({:name => name, :id => album_id}))
+#     end
+#     albums
+#     # a way to avoid n+1 query using subquery technique....
+#     results = DB.exec(%{
+#       SELECT * FROM albums
+#       WHERE id IN (
+#         SELECT album_id FROM albums_artists
+#         WHERE artist_id = #{@id});
+#         })
+#         results.map() do |result|
+#           id = result.fetch("id").to_i()
+#           name = result.fetch("name")
+#           Album.new({:name => name, :id => id})
+#     end
+#   end
+#
+#
+#
+#
 #   def update(attributes)
 #   if (attributes.has_key?(:name)) && (attributes.fetch(:name) != nil)
 #     @name = attributes.fetch(:name)

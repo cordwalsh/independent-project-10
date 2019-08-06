@@ -1,3 +1,5 @@
+require('./lib/volunteer.rb')
+
 class Project
   attr_accessor :title
   attr_reader :id
@@ -27,10 +29,10 @@ class Project
     self.title() == project_to_compare.title()
   end
 
-  # def save
-  #   result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
-  #   @id = result.first().fetch("id").to_i
-  # end
+  def save
+    result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
+    @id = result.first().fetch("id").to_i
+  end
 # -------failing--------
   def self.find(id)
     project = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
@@ -46,6 +48,12 @@ class Project
   def delete
   DB.exec("DELETE FROM volunteer_projects WHERE project_id = #{@id};")
   DB.exec("DELETE FROM projects WHERE id = #{@id};")
+  end
+
+
+  def update(attributes)
+    (attributes.key? :title) ? @title = attributes.fetch(:title) : @title = @title
+    DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
   end
 
 end
@@ -72,31 +80,3 @@ end
 #           Album.new({:name => name, :id => id})
 #     end
 #   end
-#
-#
-#
-#
-#   def update(attributes)
-#   if (attributes.has_key?(:name)) && (attributes.fetch(:name) != nil)
-#     @name = attributes.fetch(:name)
-#     DB.exec("UPDATE artists SET name = '#{@name}' WHERE id = #{@id};")
-#   end
-#   album_name = attributes[:album_name]
-#   album = DB.exec("SELECT * FROM albums WHERE lower(name)='#{album_name.downcase}';").first
-#   if !album
-#     Album.new({:name => album_name, :id => nil}).save()
-#     album = DB.exec("SELECT * FROM albums WHERE lower(name)='#{album_name.downcase}';").first
-#   end
-#   DB.exec(%{
-#     DO $$
-#     BEGIN
-#     IF NOT EXISTS
-#     (SELECT * FROM albums_artists
-#       WHERE album_id = #{album['id'].to_i} AND artist_id = #{@id})
-#       THEN
-#       INSERT INTO albums_artists (album_id, artist_id)
-#       VALUES (#{album['id'].to_i}, #{@id});
-#       END IF;
-#       END $$;
-#   })
-# end

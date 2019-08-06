@@ -1,3 +1,5 @@
+require('./lib/project.rb')
+
 class Volunteer
   attr_reader :id, :project_id
   attr_accessor :name
@@ -40,13 +42,21 @@ class Volunteer
     end
   end
 
-
-
-# -------------failing---------------
   def save
     result = DB.exec("INSERT INTO volunteer (name, project_id, id) VALUES ('#{@name}', '#{@project_id}', '#{@id}') RETURNING id;")
-    @id = result.first().fetch(id).to_i
+    @id = result.first().fetch("id").to_i
   end
+
+  # def update(attributes)
+  #   (attributes.key? :title) ? @title = attributes.fetch(:title) : @title = @title
+  #   DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+  # end
+# ------------------- update above this is new one------------
+  # def update(attributes)
+  #   (attributes.key? :name) ? @name = attributes.fetch(:name) : @name = @name
+  #   DB.exec("UPDATE volunteers SET name = '#{@name}' WHERE id = #{@id};")
+  # end
+
 # #
 #   def update(name)
 #     @name = name

@@ -1,4 +1,5 @@
 require "spec_helper"
+require 'rspec'
 
 describe Volunteer do
   describe '#name' do

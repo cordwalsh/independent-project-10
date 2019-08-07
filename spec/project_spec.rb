@@ -1,5 +1,6 @@
 require "spec_helper"
 require 'project'
+require 'rspec'
 
 describe Project do
 

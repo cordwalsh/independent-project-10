@@ -1,5 +1,5 @@
-# require "capybara/rspec"
 # require "./app"
+# require "capybara/rspec"
 # require "pry"
 # require('spec_helper')
 #

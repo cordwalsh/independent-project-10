@@ -9,11 +9,13 @@ require("pg")
 DB = PG.connect({:dbname => "volunteer_tracker"})
 
 get('/') do
+  binding.pry
   Project.all()
   redirect to('/projects')
 end
 
 get ('/projects') do
+  binding.pry
   @projects = Project.all
   erb(:projects)
 end
@@ -51,10 +53,11 @@ get ('/index') do
   @volunteers = Volunteer.all()
 end
 
-post ('/projects/') do
+post ('/projects') do
   title = params[:project_title]
   project = Project.new({:title => title, :id => nil })
-  project.save()
+  binding.pry
+  project.save
   redirect to('/')
 end
 
@@ -81,6 +84,13 @@ patch ('/volunteers/:id/edit') do
   @volunteer = Volunteer.find(params[:id].to_i())
   @volunteer.update(params[:name])
   redirect to('/volunteers')
+end
+
+patch ('/volunteer/:id') do
+  @volunteer = Volunteer.find(params[:id].to_i())
+  @volunteer.update(:name => params[:name])
+  @volunteer.save()
+  redirect to ("/volunteer/#{@volunteer.id}")
 end
 
 delete ('/projects/:id') do

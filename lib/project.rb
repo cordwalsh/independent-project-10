@@ -1,12 +1,13 @@
 require('./lib/volunteer.rb')
+require('pry')
 
 class Project
   attr_accessor :title
-  attr_reader :id
+  attr_accessor :id
 
   def initialize(attributes)
     @title = attributes.fetch(:title)
-    @id = attributes.fetch(:id)
+    @id = nil
   end
 
   def self.all
@@ -30,8 +31,10 @@ class Project
   end
 
   def save
-    result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
-    @id = result.first().fetch("id").to_i
+    binding.pry
+    result = DB.exec("INSERT INTO projects (title) VALUES ('#{self.title}') RETURNING id;").first["id"]
+    self.id = result
+    # @id = result.first().fetch("id").to_i
   end
 # -------failing--------
   def self.find(id)

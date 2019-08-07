@@ -16,7 +16,7 @@ class Volunteer
     returned_volunteers.each() do |volunteer|
       name = volunteer.fetch("name")
       id = volunteer.fetch("id").to_i
-      project_id = project.fetch("project_id").to_i
+      project_id = volunteer.fetch("project_id").to_i
       volunteers.push(Volunteer.new({:name => name, :id => id, :project_id => project_id}))
     end
     volunteers
@@ -43,7 +43,7 @@ class Volunteer
   end
 
   def save
-    result = DB.exec("INSERT INTO volunteer (name, project_id, id) VALUES ('#{@name}', '#{@project_id}', '#{@id}') RETURNING id;")
+    result = DB.exec("INSERT INTO volunteer (name) VALUES ('#{@name}') RETURNING id;")
     @id = result.first().fetch("id").to_i
   end
 

@@ -11,7 +11,7 @@ class Volunteer
   end
 
   def self.all
-    returned_volunteers = DB.exec("SELECT * FROM volunteer;")
+    returned_volunteers = DB.exec("SELECT * FROM volunteers;")
     volunteers = []
     returned_volunteers.each() do |volunteer|
       name = volunteer.fetch("name")
@@ -23,7 +23,7 @@ class Volunteer
   end
 
   def self.clear
-    DB.exec("DELETE FROM volunteer *;")
+    DB.exec("DELETE FROM volunteers *;")
   end
 
   def ==(volunteer_to_compare)
@@ -31,7 +31,7 @@ class Volunteer
   end
 
   def self.find(id)
-    volunteer = DB.exec("SELECT * FROM volunteer WHERE id = #{id};").first
+    volunteer = DB.exec("SELECT * FROM volunteers WHERE id = #{id};").first
     if volunteer
       name = volunteer.fetch("name")
       id = volunteer.fetch("id").to_i
@@ -43,7 +43,8 @@ class Volunteer
   end
 
   def save
-    result = DB.exec("INSERT INTO volunteer (name) VALUES ('#{@name}') RETURNING id;")
+    binding.pry
+    result = DB.exec("INSERT INTO volunteers (name) VALUES ('#{@name}, #{@project_id}') RETURNING id;")
     @id = result.first().fetch("id").to_i
   end
 

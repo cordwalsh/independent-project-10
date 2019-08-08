@@ -3,11 +3,11 @@ require('pry')
 
 class Project
   attr_accessor :title
-  attr_accessor :id
+  attr_reader :id
 
   def initialize(attributes)
     @title = attributes.fetch(:title)
-    @id = nil
+    @id = attributes.fetch(:id)
   end
 
   def self.all
@@ -31,10 +31,8 @@ class Project
   end
 
   def save
-    binding.pry
-    result = DB.exec("INSERT INTO projects (title) VALUES ('#{self.title}') RETURNING id;").first["id"]
-    self.id = result
-    # @id = result.first().fetch("id").to_i
+    result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
+    @id = result.first().fetch("id").to_i
   end
 # -------failing--------
   def self.find(id)

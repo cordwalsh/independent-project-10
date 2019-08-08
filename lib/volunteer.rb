@@ -1,4 +1,5 @@
 require('./lib/project.rb')
+require('pry')
 
 class Volunteer
   attr_reader :id, :project_id

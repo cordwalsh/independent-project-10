@@ -2,8 +2,8 @@ require('./lib/project.rb')
 require('pry')
 
 class Volunteer
-  attr_reader :id, :project_id
-  attr_accessor :name
+  attr_reader :name, :project_id
+  attr_accessor :id
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
@@ -44,7 +44,6 @@ class Volunteer
   end
 
   def save
-    binding.pry
     result = DB.exec("INSERT INTO volunteers (name) VALUES ('#{@name}, #{@project_id}') RETURNING id;")
     @id = result.first().fetch("id").to_i
   end

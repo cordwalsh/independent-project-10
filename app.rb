@@ -38,7 +38,7 @@ end
 
 get ('/volunteers/:id') do
   @volunteer = Volunteer.find(params[:id].to_i())
-  erb(:volunteers)
+  erb(:volunteer)
 end
 
 get ('/volunteers/:id/edit') do
